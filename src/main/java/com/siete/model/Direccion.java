@@ -33,7 +33,7 @@ public class Direccion implements Serializable{
 	@Column(name = "LONGITUD")
 	private BigDecimal longitud;
 	
-	@OneToOne(mappedBy = "direccionEvento")
+	@OneToOne(mappedBy = "direccion")
 	private Evento evento;
 
 	public Integer getId() {

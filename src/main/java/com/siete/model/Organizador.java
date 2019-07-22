@@ -1,13 +1,15 @@
 package com.siete.model;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -37,8 +39,8 @@ public class Organizador implements Serializable{
 	@Column(name = "CORREO", length = 80)
 	private String correo;
 	
-	@OneToOne(mappedBy = "organizaodr")
-	private Evento evento;
+	@OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL)
+	private List<Evento> eventos;
 	
 	public Integer getId() {
 		return id;
@@ -70,10 +72,10 @@ public class Organizador implements Serializable{
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public Evento getEvento() {
-		return evento;
+	public List<Evento> getEventos() {
+		return eventos;
 	}
-	public void setEvento(Evento evento) {
-		this.evento = evento;
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
 	}
 }

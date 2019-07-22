@@ -1,13 +1,14 @@
 package com.siete.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,8 +30,8 @@ public class CategoriaEvento implements Serializable{
 	@Column(name = "ACTIVO", length = 1)
 	private boolean activo;
 	
-	@OneToOne(mappedBy = "categoria")
-	private Evento evento;
+	@OneToMany(mappedBy = "categoria")
+	private List<Evento> eventos;
 	
 	public Integer getId() {
 		return id;
@@ -49,11 +50,12 @@ public class CategoriaEvento implements Serializable{
 	}
 	public void setActivo(boolean activo) {
 		this.activo = activo;
+	}
+	public List<Evento> getEventos() {
+		return eventos;
+	}
+	public void setEventos(List<Evento> eventos) {
+		this.eventos = eventos;
 	} 
-	public Evento getEvento() {
-		return evento;
-	}
-	public void setEvento(Evento evento) {
-		this.evento = evento;
-	}
+
 }
