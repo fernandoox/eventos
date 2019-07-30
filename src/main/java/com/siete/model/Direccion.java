@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,8 +34,19 @@ public class Direccion implements Serializable{
 	@Column(name = "LONGITUD")
 	private BigDecimal longitud;
 	
-	@OneToOne(mappedBy = "direccion")
+	@OneToOne(mappedBy = "direccion", fetch = FetchType.LAZY) // mappedBy indica que NO es la owner de la relacion
 	private Evento evento;
+	
+	public Direccion() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Direccion(String direccion, BigDecimal latitud, BigDecimal longitud, Evento evento) {
+		this.direccion = direccion;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.evento = evento;
+	}
 
 	public Integer getId() {
 		return id;
@@ -75,6 +87,60 @@ public class Direccion implements Serializable{
 	public void setEvento(Evento evento) {
 		this.evento = evento;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((direccion == null) ? 0 : direccion.hashCode());
+		result = prime * result + ((evento == null) ? 0 : evento.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((latitud == null) ? 0 : latitud.hashCode());
+		result = prime * result + ((longitud == null) ? 0 : longitud.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Direccion other = (Direccion) obj;
+		if (direccion == null) {
+			if (other.direccion != null)
+				return false;
+		} else if (!direccion.equals(other.direccion))
+			return false;
+		if (evento == null) {
+			if (other.evento != null)
+				return false;
+		} else if (!evento.equals(other.evento))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (latitud == null) {
+			if (other.latitud != null)
+				return false;
+		} else if (!latitud.equals(other.latitud))
+			return false;
+		if (longitud == null) {
+			if (other.longitud != null)
+				return false;
+		} else if (!longitud.equals(other.longitud))
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Direccion [id=" + id + ", direccion=" + direccion + ", latitud=" + latitud + ", longitud=" + longitud
+				+ ", evento=" + evento + "]";
+	}
 	
-	 
 }
