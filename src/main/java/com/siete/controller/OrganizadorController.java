@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.siete.model.Organizador;
-import com.siete.repository.IOrganizadorRepo;
+import com.siete.service.OrganizadorService;
 
 @RestController
 @RequestMapping("organizadores")
@@ -25,16 +25,16 @@ public class OrganizadorController {
 	private static final Logger LOG = LoggerFactory.getLogger(OrganizadorController.class);
 
 	@Autowired
-	private IOrganizadorRepo organizadorRepo;
+	private OrganizadorService organizadorService;
 
 	@GetMapping
 	public List<Organizador> getAllOrganizadores() {
-		return organizadorRepo.findAll();
+		return organizadorService.getAllOrganizadores();
 	}
 	
 	@GetMapping("/{id}") 
 	public ResponseEntity<Organizador> getOrganizadorById(@PathVariable Integer id) {
-		Optional<Organizador> organizador = organizadorRepo.findById(id);
+		Optional<Organizador> organizador = organizadorService.getOrganizadoyById(id);
 		if (!organizador.isPresent()) {
 			throw new ApiRequestException("No encontrados yeah");
 		}
@@ -43,7 +43,7 @@ public class OrganizadorController {
 
 	@PostMapping
 	public ResponseEntity<?> crearOrganizador(@RequestBody Organizador organizador) {
-		Organizador organizadorGuardado = organizadorRepo.save(organizador);
+		Organizador organizadorGuardado = organizadorService.saveOrganizador(organizador);
 		LOG.info("Organizador a guardar: " + organizadorGuardado.getNombre());
 		return new ResponseEntity<>(organizadorGuardado, HttpStatus.OK);
 	}
