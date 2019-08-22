@@ -19,6 +19,19 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode
 @Entity
 @Table(name = "EVENTO")
 @SequenceGenerator(name = "ID_EVENTO_SEQ", sequenceName = "EVENTO_ID_SEQ")
@@ -75,172 +88,6 @@ public class Evento implements Serializable {
 	@ManyToMany(mappedBy = "eventosGuardados", cascade = {CascadeType.PERSIST, CascadeType.MERGE}) // @ManyToMany el fetch default es LAZY
 	private List<Usuario> usuariosInteresados;
 
-	
-	public Evento() {
-		// TODO Auto-generated constructor stub
-	}
-	
-	
-	public Evento(String nombre, String descripcion, Date fechaInicial, Date fechaFinal, Integer precio,
-			Integer asistentes, Integer interesados, Direccion direccion, CategoriaEvento categoria,
-			EstadoEvento estado, Organizador organizador, List<ComentarioEvento> comentarios,
-			List<Usuario> usuariosInteresados) {
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.fechaInicial = fechaInicial;
-		this.fechaFinal = fechaFinal;
-		this.precio = precio;
-		this.asistentes = asistentes;
-		this.interesados = interesados;
-		this.direccion = direccion;
-		this.categoria = categoria;
-		this.estado = estado;
-		this.organizador = organizador;
-		this.comentarios = comentarios;
-		this.usuariosInteresados = usuariosInteresados;
-	}
-
-	
-	public Integer getId() {
-		return id;
-	}
-
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-
-	public String getNombre() {
-		return nombre;
-	}
-
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-
-	public Date getFechaInicial() {
-		return fechaInicial;
-	}
-
-
-	public void setFechaInicial(Date fechaInicial) {
-		this.fechaInicial = fechaInicial;
-	}
-
-
-	public Date getFechaFinal() {
-		return fechaFinal;
-	}
-
-
-	public void setFechaFinal(Date fechaFinal) {
-		this.fechaFinal = fechaFinal;
-	}
-
-
-	public Integer getPrecio() {
-		return precio;
-	}
-
-
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
-	}
-
-
-	public Integer getAsistentes() {
-		return asistentes;
-	}
-
-
-	public void setAsistentes(Integer asistentes) {
-		this.asistentes = asistentes;
-	}
-
-
-	public Integer getInteresados() {
-		return interesados;
-	}
-
-
-	public void setInteresados(Integer interesados) {
-		this.interesados = interesados;
-	}
-
-
-	public Direccion getDireccion() {
-		return direccion;
-	}
-
-
-	public void setDireccion(Direccion direccion) {
-		this.direccion = direccion;
-	}
-
-
-	public CategoriaEvento getCategoria() {
-		return categoria;
-	}
-
-
-	public void setCategoria(CategoriaEvento categoria) {
-		this.categoria = categoria;
-	}
-
-
-	public EstadoEvento getEstado() {
-		return estado;
-	}
-
-
-	public void setEstado(EstadoEvento estado) {
-		this.estado = estado;
-	}
-
-
-	public Organizador getOrganizador() {
-		return organizador;
-	}
-
-
-	public void setOrganizador(Organizador organizador) {
-		this.organizador = organizador;
-	}
-
-
-	public List<ComentarioEvento> getComentarios() {
-		return comentarios;
-	}
-
-
-	public void setComentarios(List<ComentarioEvento> comentarios) {
-		this.comentarios = comentarios;
-	}
-
-
-	public List<Usuario> getUsuariosInteresados() {
-		return usuariosInteresados;
-	}
-
-
-	public void setUsuariosInteresados(List<Usuario> usuariosInteresados) {
-		this.usuariosInteresados = usuariosInteresados;
-	}
-
-
 	public void addComentario(ComentarioEvento comentario) {
 		comentarios.add(comentario);
 		comentario.setEvento(this);
@@ -250,11 +97,4 @@ public class Evento implements Serializable {
 		comentarios.remove(comentario);
 		comentario.setEvento(null);
 	}
-
-	@Override
-	public String toString() {
-		return "Evento [id=" + id + ", nombre=" + nombre + ", fechaInicial=" + fechaInicial + ", fechaFinal="
-				+ fechaFinal + "]";
-	}
-	
 }
